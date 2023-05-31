@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - movie</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.10/css/all.css">
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<body>
+<header id="header" class="shadow">
+    <nav class="container px-3 mx-auto flex py-2 gap-5 justify-between">
+        <button class="md:hidden block">
+            <i class="far fa-bars text-2xl"></i>
+        </button>
+        <a href="/" class="w-[80px]">
+            <img src="https://rapchieuphim.com/images/logo-rapchieuphim.png" alt="">
+        </a>
+        <ul class="items-center gap-5 hidden md:flex">
+            <li>
+                <a href="/">Trang chủ</a>
+            </li>
+            <li>
+                <a href="/">Lịch chiếu</a>
+            </li>
+            <li>
+                <a href="/">Đang chiếu</a>
+            </li>
+            <li>
+                <a href="/">Sắp chiếu</a>
+            </li>
+            <li>
+                <a href="/">Rạp</a>
+            </li>
+            <li>
+                <a href="/">Tin điện ảnh</a>
+            </li>
+        </ul>
+        <div class="flex items-center gap-4">
+            <button>
+                <i class="far fa-search text-2xl"></i>
+            </button>
+            <a asp-page="Profile">
+                <i class="fas fa-user text-2xl"></i>
+            </a>
+        </div>
+    </nav>
+</header>
+<div class="mx-auto container">
+    <main role="main" class="mt-5">
+        @RenderBody()
+    </main>
+</div>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

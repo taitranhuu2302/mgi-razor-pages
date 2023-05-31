@@ -1,0 +1,21 @@
+@model movie.Models.ViewModel.CardMovie;
+
+<div class="flex flex-col items-center gap-2.5">
+    <div>
+        <img src="@Model.MovieModel.Image" alt="" class="h-[250px] w-full object-cover rounded" onerror="this.onerror=null; this.src='https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg'">
+    </div>
+    <div class="flex-grow w-full">
+        <p class=" text-sm line-clamp-1">@Model.MovieModel.Name</p>
+        <p>Giá vé: $@Model.MovieModel.Price</p>
+        <p>Số vé còn lại: @(Model.MovieModel.Tickets.Count)</p>
+    </div>
+    <div class="flex items-center justify-end w-full gap-3">
+        @if (@Model.UserModel?.Tickets.FirstOrDefault(m => m.Movie.Id == Model.MovieModel.Id) == null && Model.MovieModel.Tickets.Count > 0)
+        {
+            <form method="post" asp-page="Index" asp-page-handler="MovieBooked">
+                <input type="text" hidden value="@Model.MovieModel.Id" name="movieId">
+                <button type="submit" class="btn bg-primary text-white">Đặt vé</button>
+            </form>
+        }
+    </div>
+</div>

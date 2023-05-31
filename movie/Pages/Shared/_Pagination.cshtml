@@ -1,0 +1,30 @@
+@model movie.Models.PaginateModel
+
+<div class="pagination flex gap-2.5 my-2.5">
+    <a asp-route-currentPage="1" class="btn-pagi @(Model.CurrentPage <= 1 ? "pointer-events-none" : "")">
+        <i class="fas fa-angle-double-left"></i>
+    </a>
+    <a asp-route-currentPage="@(Model.CurrentPage - 1)" class="btn-pagi @(Model.CurrentPage <= 1 ? "pointer-events-none" : "")">
+        <i class="fas fa-caret-left"></i>
+    </a>
+    <div id="current-page" class="px-4 py-2 bg-primary font-semibold rounded text-white">
+        @Model.CurrentPage
+    </div>
+    <a asp-route-currentPage="@(Model.CurrentPage + 1)" class="btn-pagi @(Model.CurrentPage >= Model.TotalPage ? "pointer-events-none" : "")">
+        <i class="fas fa-caret-right"></i>
+    </a>
+    <a asp-route-currentPage="@Model.TotalPage" class="btn-pagi @(Model.CurrentPage >= Model.TotalPage ? "pointer-events-none" : "")">
+        <i class="fas fa-angle-double-right"></i>
+    </a>
+    <form class="flex items-center gap-2.5" method="get">
+        <select
+            asp-for="PageSize"
+            class="bg-white text-gray-700 outline-none rounded shadow select-per-page">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+        </select>
+        <p>items/page</p>
+        <button class="btn bg-primary text-white" type="submit">Apply</button>
+    </form>
+</div>

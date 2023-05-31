@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewData["Title"]</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true"/>
+    <link
+        rel="stylesheet"
+        href="https://pro.fontawesome.com/releases/v5.0.10/css/all.css"/>
+</head>
+<body>
+<header id="header" class="shadow w-full py-2">
+    <nav class="mx-auto container flex justify-between items-center">
+        <a href="">
+            <img src="https://www.e-gineering.com/wp-content/uploads/2020/03/Blazor-Logo-3.png" class="w-[50px]" alt="">
+        </a>
+        <ul class="flex items-center gap-5">
+            <li>
+                <a href="/Employee">Employees</a>
+            </li>
+            <li>
+                <a href="/Movie">Movies</a>
+            </li>
+            <li>
+                <a href="/Room">Room</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main role="main" class="mx-auto container">
+    @RenderBody()
+</main>
+
+@await RenderSectionAsync("Scripts", required: false)
+<script src="~/js/site.js"></script>
+</body>
+</html>

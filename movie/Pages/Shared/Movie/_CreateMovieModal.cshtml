@@ -1,0 +1,61 @@
+@using movie.Data
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model movie.Models.Movie.MovieCreate
+
+<div id="modal-create-movie" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Create Movie</h3>
+            <button class="modal-close" data-modal-target="modal-create-movie">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form method="post" asp-page="Movie" asp-page-handler="Create" class="flex flex-col gap-3">
+                <div>
+                    <label>Name</label>
+                    <input
+                        type="text"
+                        class="input-custom"
+                        asp-for="Name"
+                        placeholder="Enter name"/>
+                </div>
+                <div>
+                    <label>Image</label>
+                    <input
+                        type="text"
+                        class="input-custom"
+                        asp-for="Image"
+                        placeholder="Enter image"/>
+                </div>
+                <div>
+                    <label>Price</label>
+                    <input
+                        type="number"
+                        class="input-custom"
+                        asp-for="Price"
+                        placeholder="Enter Price"/>
+                </div>
+                <div>
+                    <label>Ticket Count</label>
+                    <input
+                        type="number"
+                        class="input-custom"
+                        asp-for="TicketCount"
+                        placeholder="Enter Price"/>
+                </div>
+                <div>
+                    <label>Room</label>
+                    <select asp-for="RoomId" class="input-custom">
+                        @foreach (var room in FakeData.Rooms)
+                        {
+                            <option value="@room.Id">@room.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="">
+                    <button type="submit" class="btn bg-primary text-white">Save</button>
+                    <button class="btn bg-gray-500 text-white" data-modal-target="modal-create-movie">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

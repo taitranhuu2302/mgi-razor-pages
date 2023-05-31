@@ -1,0 +1,59 @@
+@page
+@using movie.Models.Room
+@model movie.Pages.Room
+
+@{
+    Layout = "Shared/_LayoutAdmin";
+}
+
+
+<div class="mt-20">
+    <h3 class="text-3xl font-semibold text-primary text-center">Manage Room</h3>
+    <div class="flex justify-end mb-3">
+        <button class="btn bg-primary text-white" data-modal-target="modal-create-room">Add New Room</button>
+    </div>
+    <div class="shadow">
+        <table class="table min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            @foreach (var r in Model.Rooms)
+            {
+                <tr>
+                    <td class="w-[calc100%/3)]">
+                        <div class="table-text">@r.Id</div>
+                    </td>
+                    <td class="w-[calc100%/3)]">
+                        <div class="table-text">@r.Name</div>
+                    </td>
+                    <td class="w-[calc(100%/3)]">
+                        <div class="flex items-center">
+                            <button class="btn" data-obj='@Json.Serialize(r)' data-modal-target="modal-edit-room">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <form method="post" asp-page="Room" asp-page-handler="Remove" asp-route-roomId="@r.Id">
+                                <button type="submit" class="btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    @await Html.PartialAsync("Shared/_Pagination", Model.PaginateModel)
+    @await Html.PartialAsync("Shared/Room/_CreateRoomModal", new RoomCreate())
+    @await Html.PartialAsync("Shared/Room/_EditRoomModal", new RoomEdit())
+</div>
+
+@section Scripts
+{
+    <script src="~/js/room.js"></script>
+}

@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#header ul li a {
+  @apply hover:text-primary;
+}
+
+.btn {
+  @apply px-3 py-2 rounded hover:opacity-80 disabled:opacity-50;
+}
+
+.input-custom {
+  @apply w-full rounded-lg border-gray-200 p-4 outline-none text-sm shadow-sm border bg-transparent;
+}
+
+label {
+  @apply ml-[2px] mb-1 block;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.table {
+  @apply shadow;
+}
+
+.table thead {
+  @apply sticky top-0;
+}
+
+.table tr th {
+  @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+}
+
+.table tr td {
+  @apply px-6 py-4;
+}
+
+.table-text {
+  @apply line-clamp-1;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+.modal.active {
+  display: block;
+}
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  max-width: 500px;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+.modal-content .modal-header {
+  padding: 10px 20px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-content .modal-header .modal-title {
+  font-size: 20px;
+  font-weight: 500;
+}
+.modal-content .modal-header .modal-close {
+  cursor: pointer;
+  color: #000;
+  font-size: 26px;
+}
+.modal-content .modal-body {
+  padding: 20px;
+  flex: 1 0 auto;
+}
+.modal-content .modal-footer {
+  flex: 0 1 auto;
+  border-top: 1px solid #e5e5e5;
+  padding: 20px;
+}
+
+.pagination {
+  @apply px-4 py-3 flex items-center justify-center;
+}
+
+.pagination .btn-pagi i {
+  @apply text-gray-500;
+}
+
+.pagination .btn-pagi,
+.pagination select {
+  @apply px-4 py-2 rounded shadow;
+}
+
+.pagination .btn-pagi {
+  @apply text-black bg-white hover:bg-slate-200;
+}

@@ -1,0 +1,68 @@
+@page
+@model movie.Pages.Login
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<body>
+<div>
+    <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-lg">
+            <h1 class="text-center text-2xl font-bold text-primary sm:text-3xl">
+                Get started today
+            </h1>
+            <p class="mx-auto mt-4 max-w-md text-center text-gray-500">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati sunt
+                dolores deleniti inventore quaerat mollitia?
+            </p>
+            <form
+                method="post"
+                class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+                <p class="text-center text-lg font-medium">Sign in to your account</p>
+
+                <div>
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        class="input-custom"
+                        value="admin@gmail.com"
+                        asp-for="UserLogin.Email"
+                        placeholder="Enter email"/>
+                </div>
+
+                <div>
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        class="input-custom"
+                        value="password"
+                        asp-for="UserLogin.Password"
+                        placeholder="Enter password"/>
+                </div>
+                <button
+                    type="submit"
+                    class="block w-full rounded-lg bg-primary px-5 py-3 text-sm font-medium text-white">
+                    Sign in
+                </button>
+
+                <p class="text-center text-sm text-gray-500">
+                    No account?
+                    <a class="underline" href="">Sign up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+@page
+@using movie.Models.User
+@model movie.Pages.Employee
+
+@{
+    Layout = "Shared/_LayoutAdmin";
+}
+
+<div class="mt-20">
+    <h3 class="text-3xl font-semibold text-primary text-center">Manage Employee</h3>
+    <div class="flex justify-end mb-3">
+        <button class="btn bg-primary text-white" data-modal-target="modal-create-employee">Add New User</button>
+    </div>
+    <div class="shadow">
+        <table class="table min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Date of birth</th>
+                <th scope="col">Role</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            @foreach (var u in Model.ListUser.Where(u => u.Id != Model.User?.Id))
+            {
+                <tr>
+                    <td class="w-[calc(100%/7)]">
+                        <div class="table-text">@u.Id</div>
+                    </td>
+                    <td class="w-[calc(100%/7)]">
+                        <div class="table-text">@u.Name</div>
+                    </td>
+                    <td class="w-[calc(100%/7)]">
+                        <div class="table-text">@u.Email</div>
+                    </td>
+                    <td class="w-[calc(100%/7)]">
+                        <div class="table-text">
+                            @if (@u.Day != null && @u.Month != null && @u.Year != null)
+                            {
+                                <span>@u.Month @u.Day, @u.Year</span>
+                            }
+                        </div>
+                    </td>
+                    <td class="w-[calc(100%/7)]">
+                        <div class="table-text">@u.Role</div>
+                    </td>
+                    <td class="w-[calc(100%/7)]">
+                        <div class="flex items-center">
+                            <button class="btn" data-obj='@Json.Serialize(u)' data-modal-target="modal-edit-employee">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <form method="post" asp-page="Employee" asp-page-handler="Remove" asp-route-id="@u.Id">
+                                <button type="submit" class="btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    @await Html.PartialAsync("Shared/_Pagination", Model.PaginateModel)
+    @await Html.PartialAsync("Shared/Employee/_EditEmployeeModal", new UserEdit())
+    @await Html.PartialAsync("Shared/Employee/_CreateEmployeeModal", new UserCreate())
+</div>
+
+@section Scripts
+{
+    <script src="~/js/employee.js"></script>
+}
