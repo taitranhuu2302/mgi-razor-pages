@@ -23,6 +23,18 @@ public class Movie : PageModel
         this.Movies = movies;
         return Page();
     }
+    
+    public IActionResult OnGetData(PaginateModel paginateModel)
+    {
+        this.PaginateModel = paginateModel;
+        var movies = Enumerable.Reverse(FakeData.Movies).ToList();
+        this.PaginateModel.Count = movies.Count;
+        movies = movies.Skip((paginateModel.CurrentPage - 1) * paginateModel.PageSize)
+            .Take(paginateModel.PageSize).ToList();
+
+        this.Movies = movies;
+        return new JsonResult(movies);
+    }
 
     public IActionResult OnPostCreate(MovieCreate request)
     {
