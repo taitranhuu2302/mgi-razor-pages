@@ -15,11 +15,16 @@ public class Login : PageModel
 
     public IActionResult OnPost()
     {
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
+
         var check = FakeData.Users.FirstOrDefault(u => u.Email == UserLogin.Email && u.Password == UserLogin.Password);
         if (check == null) return Page();
 
         HttpContext.Session.SetString("User", check.Id);
-    
+
         return Redirect("/");
     }
 }

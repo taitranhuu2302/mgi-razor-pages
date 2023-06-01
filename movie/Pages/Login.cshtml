@@ -30,7 +30,6 @@
                 method="post"
                 class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
                 <p class="text-center text-lg font-medium">Sign in to your account</p>
-
                 <div>
                     <label for="email">Email</label>
                     <input
@@ -50,6 +49,7 @@
                         asp-for="UserLogin.Password"
                         placeholder="Enter password"/>
                 </div>
+                @Html.ValidationSummary(false, "", new { @class = "text-error" })
                 <button
                     type="submit"
                     class="block w-full rounded-lg bg-primary px-5 py-3 text-sm font-medium text-white">

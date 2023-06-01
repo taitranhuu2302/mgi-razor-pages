@@ -25,6 +25,12 @@ public class Room : PageModel
 
     public IActionResult OnPostCreate(RoomCreate request)
     {
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError("Create", "Create room error");
+            this.Rooms = Enumerable.Reverse(FakeData.Rooms).ToList();
+            return Page();
+        }
         FakeData.Rooms.Add(new RoomModel()
         {
             Name = request.Name,
@@ -35,6 +41,13 @@ public class Room : PageModel
 
     public IActionResult OnPostEdit(RoomEdit request)
     {
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError("Edit", "Edit room error");
+            this.Rooms = Enumerable.Reverse(FakeData.Rooms).ToList();
+            return Page();
+        }
+        
         var room = FakeData.Rooms.FirstOrDefault(r => r.Id == request.Id);
         if (room != null)
         {

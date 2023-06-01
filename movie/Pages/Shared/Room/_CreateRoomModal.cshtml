@@ -1,7 +1,10 @@
 @model movie.Models.Room.RoomCreate
 
+@{
+    var isError = !string.IsNullOrEmpty(Html.ViewData.ModelState.Keys.FirstOrDefault(m => m == "Create"));
+}
 
-<div id="modal-create-room" class="modal">
+<div id="modal-create-room" class="modal @(isError ? "active" : "")">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Create Room</h3>
@@ -25,6 +28,10 @@
                         asp-for="Seats"
                         placeholder="Enter seats"/>
                 </div>
+                @if(isError)
+                {
+                    @Html.ValidationSummary(false, "", new {@class = "text-error"})
+                }
                 <div class="">
                     <button type="submit" class="btn bg-primary text-white">Save</button>
                     <button class="btn bg-gray-500 text-white" data-modal-target="modal-create-room">Cancel</button>

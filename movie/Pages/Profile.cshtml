@@ -2,6 +2,42 @@
 @model movie.Pages.Profile
 
 
+<style scoped>
+    .table tr td {
+        width: calc(100%/6);
+    }
+</style>
+
+<div class="my-3 flex items-end flex-col">
+    <p class="text-lg font-semibold">Hide column</p>
+    <div class="flex items-center gap-3">
+        <div class="checkbox-control">
+            <input id="cb-id" type="checkbox">
+            <label for="cb-id">Id</label>
+        </div>
+        <div class="checkbox-control">
+            <input id="cb-name" type="checkbox">
+            <label for="cb-name">Name</label>
+        </div>
+        <div class="checkbox-control">
+            <input id="cb-image" type="checkbox">
+            <label for="cb-image">Image</label>
+        </div>
+        <div class="checkbox-control">
+            <input id="cb-room" type="checkbox">
+            <label for="cb-room">Room</label>
+        </div>
+        <div class="checkbox-control">
+            <input id="cb-price" type="checkbox">
+            <label for="cb-price">Price</label>
+        </div>
+        <div class="checkbox-control">
+            <input id="cb-actions" type="checkbox">
+            <label for="cb-actions">Action</label>
+        </div>
+    </div>
+</div>
+
 <div class="mt-5 shadow">
     <table class="table min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
@@ -18,25 +54,25 @@
         @foreach (var ticket in Model.TicketModels)
         {
             <tr>
-                <td class="w-[calc(100%/6)]">
+                <td>
                     <div class="table-text">@ticket.Id</div>
                 </td>
-                <td class="w-[calc(100%/6)]">
+                <td>
                     <div class="table-text">
                         <img src="@ticket.Movie.Image" alt="" class="h-[100px]" onerror="this.onerror=null; this.src='https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg'">
                     </div>
                 </td>
-                <td class="w-[calc(100%/6)]">
+                <td>
                     <div class="table-text">@ticket.Movie.Name</div>
                 </td>
-                <td class="w-[calc(100%/6)]">
+                <td>
                     <div class="table-text">@ticket.Room.Name</div>
                 </td>
-                <td class="w-[calc(100%/6)]">
+                <td>
                     <div class="table-text">$@ticket.Movie.Price</div>
                 </td>
-                <td class="w-[calc(100%/6)]">
-                    <form method="post" asp-page="Profile" asp-page-handler="RemoveMovieBooked" asp-route-movieId="@ticket.Movie.Id">
+                <td>
+                    <form method="post" asp-page="Profile" asp-page-handler="RemoveMovieBooked" asp-route-movieId="@ticket.Movie.Id" onsubmit="return confirm('Are you sure you want to delete this?')">
                         <button type="submit" class="btn">
                             <i class="fas fa-trash"></i>
                         </button>
@@ -49,3 +85,8 @@
 </div>
 
 @await Html.PartialAsync("Shared/_Pagination", Model.PaginateModel);
+
+@section Scripts
+{
+    <script src="~/js/table.js"></script>
+}

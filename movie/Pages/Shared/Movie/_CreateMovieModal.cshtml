@@ -2,7 +2,11 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model movie.Models.Movie.MovieCreate
 
-<div id="modal-create-movie" class="modal">
+@{
+    var isError = !string.IsNullOrEmpty(Html.ViewData.ModelState.Keys.FirstOrDefault(m => m == "Create"));
+}
+
+<div id="modal-create-movie" class="modal @(isError ? "active" : "")">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Create Movie</h3>
@@ -44,13 +48,12 @@
                 </div>
                 <div>
                     <label>Room</label>
-                    <select asp-for="RoomId" class="input-custom">
-                        @foreach (var room in FakeData.Rooms)
-                        {
-                            <option value="@room.Id">@room.Name</option>
-                        }
-                    </select>
+                    @Html.DropDownList("RoomId", new SelectList(FakeData.Rooms, "Id", "Name"), new { @class = "input-custom" })
                 </div>
+                @if (isError)
+                {
+                    @Html.ValidationSummary(false, "", new {@class = "text-error"})
+                }
                 <div class="">
                     <button type="submit" class="btn bg-primary text-white">Save</button>
                     <button class="btn bg-gray-500 text-white" data-modal-target="modal-create-movie">Cancel</button>

@@ -1,9 +1,11 @@
 @using movie.Models.Room
 @using movie.Data
 @model movie.Models.Room.RoomEdit
+@{
+    var isError = !string.IsNullOrEmpty(Html.ViewData.ModelState.Keys.FirstOrDefault(m => m == "Edit"));
+}
 
-
-<div id="modal-edit-room" class="modal">
+<div id="modal-edit-room" class="modal @(isError ? "active" : "")">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Edit Room</h3>
@@ -38,21 +40,16 @@
                 </div>
                 <div>
                     <label>Staff</label>
-                    <select asp-for="UserId" class="input-custom">
-                        <option value="" selected>Select Staff</option>
-                        @foreach (var u in FakeData.Users)
-                        {
-                            <option value="@u.Id">@u.Name</option>
-                        }
-                    </select>
+                    @Html.DropDownList("UserId", new SelectList(FakeData.Users, "Id", "Name"), "Select Staff", new { @class = "input-custom" })
                 </div>
                 <div>
                     <label>Status</label>
-                    <select asp-for="RoomStatus" class="input-custom">
-                        <option value="@RoomStatus.Available">@RoomStatus.Available</option>
-                        <option value="@RoomStatus.Busy">@RoomStatus.Busy</option>
-                    </select>
+                    @Html.DropDownList("RoomStatus", new SelectList(Enum.GetValues(typeof(RoomStatus))), new { @class = "input-custom" })
                 </div>
+                @if (isError)
+                {
+                    @Html.ValidationSummary(false, "", new { @class = "text-error" })
+                }
                 <div class="">
                     <button type="submit" class="btn bg-primary text-white">Save</button>
                     <button class="btn bg-gray-500 text-white" data-modal-target="modal-edit-room">Cancel</button>

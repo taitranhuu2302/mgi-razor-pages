@@ -19,13 +19,20 @@ public class Movie : PageModel
         this.PaginateModel.Count = movies.Count;
         movies = movies.Skip((paginateModel.CurrentPage - 1) * paginateModel.PageSize)
             .Take(paginateModel.PageSize).ToList();
-        
+
         this.Movies = movies;
         return Page();
     }
 
     public IActionResult OnPostCreate(MovieCreate request)
     {
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError("Create", "Create movie error");
+            this.Movies = Enumerable.Reverse(FakeData.Movies).ToList();
+            return Page();
+        }
+
         var room = FakeData.Rooms.FirstOrDefault(r => r.Id == request.RoomId)!;
 
         var movie = new MovieModel()
@@ -50,6 +57,12 @@ public class Movie : PageModel
 
     public IActionResult OnPostEdit(MovieEdit request)
     {
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError("Edit", "Edit movie error");
+            this.Movies = Enumerable.Reverse(FakeData.Movies).ToList();
+            return Page();
+        }
         var movie = FakeData.Movies.FirstOrDefault(m => m.Id == request.Id);
         if (movie != null)
         {

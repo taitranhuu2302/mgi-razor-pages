@@ -1,6 +1,10 @@
 @model movie.Models.Movie.MovieEdit
 
-<div id="modal-edit-movie" class="modal">
+@{
+    var isError = !string.IsNullOrEmpty(Html.ViewData.ModelState.Keys.FirstOrDefault(m => m == "Edit"));
+}
+
+<div id="modal-edit-movie" class="modal @(isError ? "active" : "")">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Edit Movie</h3>
@@ -36,6 +40,10 @@
                         name="price"
                         placeholder="Enter Price"/>
                 </div>
+                @if (isError)
+                {
+                    @Html.ValidationSummary(false, "", new { @class = "text-error" })
+                }
                 <div class="">
                     <button type="submit" class="btn bg-primary text-white">Save</button>
                     <button class="btn bg-gray-500 text-white" data-modal-target="modal-edit-movie">Cancel</button>

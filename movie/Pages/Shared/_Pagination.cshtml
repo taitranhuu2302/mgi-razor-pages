@@ -19,13 +19,7 @@
     </a>
     <form class="flex items-center gap-2.5" method="get">
         <input type="text" hidden asp-for="CurrentPage">
-        <select
-            asp-for="PageSize"
-            class="bg-white text-gray-700 outline-none rounded shadow select-per-page">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-        </select>
+        @Html.DropDownList("PageSize", new SelectList(new List<string>() { "5", "10", "20" }), new {@class = "bg-white text-gray-700 outline-none rounded shadow select-per-page"})
         <p>items/page</p>
         <button class="btn bg-primary text-white" type="submit">Apply</button>
     </form>

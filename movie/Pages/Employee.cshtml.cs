@@ -32,6 +32,16 @@ public class Employee : PageModel
 
     public IActionResult OnPostCreate(UserCreate request)
     {
+        if (!ModelState.IsValid)
+        {
+            var current = FakeData.Users.FirstOrDefault(u => u.Id == HttpContext.Session.GetString("User"));
+            this.ListUser = Enumerable.Reverse(FakeData.Users).Where(u => u.Id != current?.Id).ToList();
+            this.User = current;
+            ModelState.AddModelError("Create", "Error");
+
+            return Page();
+        }
+
         var user = new UserModel()
         {
             Email = request.Email,
@@ -49,6 +59,15 @@ public class Employee : PageModel
 
     public IActionResult OnPostEdit(UserEdit request)
     {
+        if (!ModelState.IsValid)
+        {
+            var current = FakeData.Users.FirstOrDefault(u => u.Id == HttpContext.Session.GetString("User"));
+            this.ListUser = Enumerable.Reverse(FakeData.Users).Where(u => u.Id != current?.Id).ToList();
+            this.User = current;
+            ModelState.AddModelError("Edit", "Error");
+            return Page();
+        }
+        
         var user = FakeData.Users.FirstOrDefault(u => u.Id == request.Id);
         if (user != null)
         {

@@ -1,6 +1,12 @@
 @model movie.Models.User.UserEdit
 
-<div id="modal-edit-employee" class="modal">
+
+@{
+    var isError = !string.IsNullOrEmpty(Html.ViewData.ModelState.Keys.FirstOrDefault(m => m == "Edit"));
+}
+
+
+<div id="modal-edit-employee" class="modal @(isError ? "active" : "")">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Edit Employee</h3>
@@ -17,6 +23,10 @@
                         asp-for="Name"
                         name="name"
                         placeholder="Enter name"/>
+                    @if (isError)
+                    {
+                        <span class="text-error" asp-validation-for="Name"></span>
+                    }
                 </div>
                 <div>
                     <label>Email</label>
@@ -26,6 +36,10 @@
                         asp-for="Email"
                         name="email"
                         placeholder="Enter email"/>
+                    @if (isError)
+                    {
+                        <span class="text-error" asp-validation-for="Email"></span>
+                    }
                 </div>
                 <div>
                     <label>Password</label>
@@ -35,6 +49,10 @@
                         asp-for="Password"
                         name="password"
                         placeholder="Enter password"/>
+                    @if (isError)
+                    {
+                        <span class="text-error" asp-validation-for="Password"></span>
+                    }
                 </div>
                 <div>
                     <label>Birthday</label>
@@ -43,10 +61,20 @@
                         <select required asp-for="Day" class="day-custom input-custom"></select>
                         <select required asp-for="Year" class="year-custom input-custom"></select>
                     </div>
+                    @if (isError)
+                    {
+                        <div class="flex flex-col gap-2.5">
+                            <span class="text-error" asp-validation-for="Day"></span>
+                            <span class="text-error" asp-validation-for="Month"></span>
+                            <span class="text-error" asp-validation-for="Year"></span>
+                        </div>
+                    }
                 </div>
-                <div class="">
+                <div >
                     <button type="submit" class="btn bg-primary text-white">Save</button>
-                    <button class="btn bg-gray-500 text-white" data-modal-target="modal-edit-employee">Cancel</button>
+                    <button class="btn bg-gray-500 text-white" data-modal-target="modal-edit-employee">
+                        Cancel
+                    </button>
                 </div>
             </form>
         </div>
