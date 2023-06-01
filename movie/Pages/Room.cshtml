@@ -2,6 +2,7 @@
 @using movie.Models.Room
 @using System.Web
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@using movie.Models.ViewModel
 @model movie.Pages.Room
 
 @{
@@ -100,10 +101,14 @@
                             <button class="btn" data-obj='@Json.Serialize(r)' data-modal-target="modal-edit-room">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <form method="post" asp-page="Room" asp-page-handler="Remove" asp-route-roomId="@r.Id" onsubmit="return confirm('Are you sure you want to delete this?')">
-                                <button type="submit" class="btn">
+                            <form method="post" asp-page="Room" asp-page-handler="Remove" asp-route-roomId="@r.Id">
+                                <button type="button" class="btn btn-confirm">
                                     <i class="fas fa-trash"></i>
                                 </button>
+                                @await Html.PartialAsync("Shared/_PopupConfirm", new PopupConfirmModel()
+                                       {
+                                           Message = "Are you sure you want to delete this?"
+                                       })
                             </form>
                         </div>
                     </td>

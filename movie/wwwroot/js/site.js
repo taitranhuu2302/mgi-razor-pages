@@ -127,3 +127,21 @@ const renderDays = (days) => {
 renderYears()
 renderMonths()
 renderDays(days[0])
+
+
+const confirmButtons = document.querySelectorAll(".btn-confirm");
+
+confirmButtons.forEach(btn => {
+    const parent = btn.parentNode;
+    const modal = parent.querySelector(".modal");
+    
+    btn.addEventListener("click", () => {
+        modal.classList.add('active')
+    })
+
+    const buttonClose = parent.querySelector(".btn-confirm-close");
+
+    buttonClose.addEventListener('click', () => {
+        modal.classList.remove('active')
+    })
+})

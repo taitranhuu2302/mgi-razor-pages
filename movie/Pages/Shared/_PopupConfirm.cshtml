@@ -1,0 +1,17 @@
+@model movie.Models.ViewModel.PopupConfirmModel;
+
+<div class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Confirmation</h3>
+            <button class="modal-close" data-modal-target="modal-create-movie">&times;</button>
+        </div>
+        <div class="modal-body">
+            @Model.Message
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn text-white bg-primary">Confirm</button>
+            <button type="button" class="btn btn-confirm-close text-white bg-gray-500">Close</button>
+        </div>
+    </div>
+</div>
