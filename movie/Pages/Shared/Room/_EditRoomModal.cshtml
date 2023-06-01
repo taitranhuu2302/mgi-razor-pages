@@ -1,3 +1,5 @@
+@using movie.Models.Room
+@using movie.Data
 @model movie.Models.Room.RoomEdit
 
 
@@ -9,15 +11,47 @@
         </div>
         <div class="modal-body">
             <form method="post" asp-page="Room" asp-page-handler="Edit" class="flex flex-col gap-3">
-                <input type="text" hidden name="id" asp-for="Id">
+                <input type="text" hidden asp-for="Id">
                 <div>
                     <label>Name</label>
                     <input
                         type="text"
                         class="input-custom"
                         asp-for="Name"
-                        name="name"
                         placeholder="Enter name"/>
+                </div>
+                <div>
+                    <label>Seats</label>
+                    <input
+                        type="text"
+                        class="input-custom"
+                        asp-for="Seats"
+                        placeholder="Enter seats"/>
+                </div>
+                <div>
+                    <label>Start Time</label>
+                    <input type="datetime-local" asp-for="StartTime" class="input-custom">
+                </div>
+                <div>
+                    <label>End Time</label>
+                    <input type="datetime-local" asp-for="EndTime" class="input-custom">
+                </div>
+                <div>
+                    <label>Staff</label>
+                    <select asp-for="UserId" class="input-custom">
+                        <option value="" selected>Select Staff</option>
+                        @foreach (var u in FakeData.Users)
+                        {
+                            <option value="@u.Id">@u.Name</option>
+                        }
+                    </select>
+                </div>
+                <div>
+                    <label>Status</label>
+                    <select asp-for="RoomStatus" class="input-custom">
+                        <option value="@RoomStatus.Available">@RoomStatus.Available</option>
+                        <option value="@RoomStatus.Busy">@RoomStatus.Busy</option>
+                    </select>
                 </div>
                 <div class="">
                     <button type="submit" class="btn bg-primary text-white">Save</button>

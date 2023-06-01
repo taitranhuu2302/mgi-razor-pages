@@ -21,12 +21,10 @@ public class Employee : PageModel
         }
 
         this.PaginateModel = paginateModel;
-        var listUser = Enumerable.Reverse(FakeData.Users).ToList();
+        var listUser = Enumerable.Reverse(FakeData.Users).Where(u => u.Id != user.Id).ToList();
         this.PaginateModel.Count = listUser.Count;
         listUser = listUser.Skip((paginateModel.CurrentPage - 1) * paginateModel.PageSize)
             .Take(paginateModel.PageSize).ToList();
-        Console.WriteLine(PaginateModel.Count);
-        Console.WriteLine(PaginateModel.CurrentPage);
         this.ListUser = listUser;
         this.User = user;
         return Page();

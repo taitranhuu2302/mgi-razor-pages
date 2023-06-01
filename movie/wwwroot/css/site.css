@@ -11,7 +11,7 @@
 }
 
 .input-custom {
-  @apply w-full rounded-lg border-gray-200 p-4 outline-none text-sm shadow-sm border bg-transparent;
+  @apply w-full rounded-lg border-gray-200 p-4 outline-none text-sm shadow-sm border-2 bg-transparent focus:border-primary;
 }
 
 label {

@@ -23,14 +23,14 @@ public static class FakeData
         };
         Rooms = new List<RoomModel>()
         {
-            new RoomModel() { Name = "Room 1" },
-            new RoomModel() { Name = "Room 2" },
-            new RoomModel() { Name = "Room 3" },
-            new RoomModel() { Name = "Room 4" },
-            new RoomModel() { Name = "Room 5" },
-            new RoomModel() { Name = "Room 6" },
-            new RoomModel() { Name = "Room 7" },
-            new RoomModel() { Name = "Room 8" },
+            new RoomModel() { Name = "Room 1", Seats = 120 },
+            new RoomModel() { Name = "Room 2", Seats = 120 },
+            new RoomModel() { Name = "Room 3", Seats = 120 },
+            new RoomModel() { Name = "Room 4", Seats = 120 },
+            new RoomModel() { Name = "Room 5", Seats = 120 },
+            new RoomModel() { Name = "Room 6", Seats = 120 },
+            new RoomModel() { Name = "Room 7", Seats = 120 },
+            new RoomModel() { Name = "Room 8", Seats = 120 },
         };
 
         Movies = new List<MovieModel>()

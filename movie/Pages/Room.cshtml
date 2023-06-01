@@ -1,5 +1,7 @@
 @page
 @using movie.Models.Room
+@using System.Web
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model movie.Pages.Room
 
 @{
@@ -18,6 +20,11 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
+                <th scope="col">Seats</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+                <th scope="col">Duty Staff</th>
+                <th scope="col">Status</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -25,13 +32,28 @@
             @foreach (var r in Model.Rooms)
             {
                 <tr>
-                    <td class="w-[calc100%/3)]">
+                    <td class="w-[calc100%/8)]">
                         <div class="table-text">@r.Id</div>
                     </td>
-                    <td class="w-[calc100%/3)]">
+                    <td class="w-[calc100%/8)]">
                         <div class="table-text">@r.Name</div>
                     </td>
-                    <td class="w-[calc(100%/3)]">
+                    <td class="w-[calc100%/8)]">
+                        <div class="table-text">@r.Seats</div>
+                    </td>
+                    <td class="w-[calc100%/8)]">
+                        <div class="table-text">@r.StartTime</div>
+                    </td>
+                    <td class="w-[calc100%/8)]">
+                        <div class="table-text">@r.EndTime</div>
+                    </td>
+                    <td class="w-[calc100%/8)]">
+                        <div class="table-text">@r.UserModel?.Name</div>
+                    </td>
+                    <td class="w-[calc100%/8)]">
+                        <div class="table-text">@r.RoomStatus</div>
+                    </td>
+                    <td class="w-[calc(100%/8)]">
                         <div class="flex items-center">
                             <button class="btn" data-obj='@Json.Serialize(r)' data-modal-target="modal-edit-room">
                                 <i class="fas fa-edit"></i>
