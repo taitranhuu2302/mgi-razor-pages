@@ -126,3 +126,7 @@ label {
 .checkbox-control label {
   @apply m-0 uppercase cursor-pointer;
 }
+
+.list-error {
+  @apply flex flex-col gap-1;
+}

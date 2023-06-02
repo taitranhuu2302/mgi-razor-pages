@@ -1,25 +1,21 @@
 @model movie.Models.Movie.MovieEdit
 
-@{
-    var isError = !string.IsNullOrEmpty(Html.ViewData.ModelState.Keys.FirstOrDefault(m => m == "Edit"));
-}
 
-<div id="modal-edit-movie" class="modal @(isError ? "active" : "")">
+<div id="modal-edit-movie" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Edit Movie</h3>
             <button class="modal-close" data-modal-target="modal-edit-movie">&times;</button>
         </div>
         <div class="modal-body">
-            <form method="post" asp-page="Movie" asp-page-handler="Edit" class="flex flex-col gap-3">
-                <input type="text" hidden name="id" asp-for="Id">
+            <form id="edit-movie" class="flex flex-col gap-3">
+                <input type="text" hidden asp-for="Id">
                 <div>
                     <label>Name</label>
                     <input
                         type="text"
                         class="input-custom"
                         asp-for="Name"
-                        name="name"
                         placeholder="Enter name"/>
                 </div>
                 <div>
@@ -28,7 +24,6 @@
                         type="text"
                         class="input-custom"
                         asp-for="Image"
-                        name="image"
                         placeholder="Enter image"/>
                 </div>
                 <div>
@@ -37,16 +32,12 @@
                         type="number"
                         class="input-custom"
                         asp-for="Price"
-                        name="price"
                         placeholder="Enter Price"/>
                 </div>
-                @if (isError)
-                {
-                    @Html.ValidationSummary(false, "", new { @class = "text-error" })
-                }
+                <div class="list-error"></div>
                 <div class="">
                     <button type="submit" class="btn bg-primary text-white">Save</button>
-                    <button class="btn bg-gray-500 text-white" data-modal-target="modal-edit-movie">Cancel</button>
+                    <button type="button" class="btn bg-gray-500 text-white" data-modal-target="modal-edit-movie">Cancel</button>
                 </div>
             </form>
         </div>

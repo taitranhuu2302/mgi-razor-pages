@@ -1,18 +1,14 @@
 @using movie.Models.Room
 @using movie.Data
 @model movie.Models.Room.RoomEdit
-@{
-    var isError = !string.IsNullOrEmpty(Html.ViewData.ModelState.Keys.FirstOrDefault(m => m == "Edit"));
-}
-
-<div id="modal-edit-room" class="modal @(isError ? "active" : "")">
+<div id="modal-edit-room" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Edit Room</h3>
             <button class="modal-close" data-modal-target="modal-edit-room">&times;</button>
         </div>
         <div class="modal-body">
-            <form method="post" asp-page="Room" asp-page-handler="Edit" class="flex flex-col gap-3">
+            <form id="edit-room" class="flex flex-col gap-3">
                 <input type="text" hidden asp-for="Id">
                 <div>
                     <label>Name</label>
@@ -46,16 +42,12 @@
                     <label>Status</label>
                     @Html.DropDownList("RoomStatus", new SelectList(Enum.GetValues(typeof(RoomStatus))), new { @class = "input-custom" })
                 </div>
-                @if (isError)
-                {
-                    @Html.ValidationSummary(false, "", new { @class = "text-error" })
-                }
+                <div class="list-error"></div>
                 <div class="">
                     <button type="submit" class="btn bg-primary text-white">Save</button>
                     <button class="btn bg-gray-500 text-white" data-modal-target="modal-edit-room">Cancel</button>
                 </div>
             </form>
         </div>
-
     </div>
 </div>

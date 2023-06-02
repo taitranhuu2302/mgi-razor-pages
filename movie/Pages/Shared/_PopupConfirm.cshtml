@@ -1,17 +1,15 @@
-@model movie.Models.ViewModel.PopupConfirmModel;
-
-<div class="modal">
+<div class="modal" id="modal-confirm-delete">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Confirmation</h3>
-            <button class="modal-close" data-modal-target="modal-create-movie">&times;</button>
+            <button class="modal-close" data-modal-target="modal-confirm-delete">&times;</button>
         </div>
         <div class="modal-body">
-            @Model.Message
+            Are you sure you want to delete this?
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn text-white bg-primary">Confirm</button>
-            <button type="button" class="btn btn-confirm-close text-white bg-gray-500">Close</button>
+            <button type="button" class="btn-submit btn text-white bg-primary">Confirm</button>
+            <button type="button" data-modal-target="modal-confirm-delete" class="btn btn-confirm-close text-white bg-gray-500">Close</button>
         </div>
     </div>
 </div>

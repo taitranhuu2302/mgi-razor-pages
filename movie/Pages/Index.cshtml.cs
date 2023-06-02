@@ -42,6 +42,6 @@ public class IndexModel : PageModel
             movie.Tickets.Remove(ticket);
         }
 
-        return Redirect("/");
+        return RedirectToPage("Profile");
     }
 }

@@ -1,26 +1,21 @@
-@using Microsoft.AspNetCore.Mvc.TagHelpers
-@model movie.Models.PaginateModel
-
 <div class="pagination flex gap-2.5 my-2.5">
-    <a asp-route-currentPage="1" asp-route-pageSize="@Model.PageSize" class="btn-pagi @(Model.CurrentPage <= 1 ? "pointer-events-none" : "")">
+    <button data-type="first" class="btn-pagi">
         <i class="fas fa-angle-double-left"></i>
-    </a>
-    <a asp-route-currentPage="@(Model.CurrentPage - 1)" asp-route-pageSize="@Model.PageSize" class="btn-pagi @(Model.CurrentPage <= 1 ? "pointer-events-none" : "")">
+    </button>
+    <button data-type="prev" class="btn-pagi">
         <i class="fas fa-caret-left"></i>
-    </a>
+    </button>
     <div id="current-page" class="px-4 py-2 bg-primary font-semibold rounded text-white">
-        @Model.CurrentPage
+        1
     </div>
-    <a asp-route-currentPage="@(Model.CurrentPage + 1)" asp-route-pageSize="@Model.PageSize" class="btn-pagi @(Model.CurrentPage >= Model.TotalPage ? "pointer-events-none" : "")">
+    <button data-type="next" class="btn-pagi ">
         <i class="fas fa-caret-right"></i>
-    </a>
-    <a asp-route-currentPage="@Model.TotalPage" asp-route-pageSize="@Model.PageSize" class="btn-pagi @(Model.CurrentPage >= Model.TotalPage ? "pointer-events-none" : "")">
+    </button>
+    <button data-type="last" class="btn-pagi ">
         <i class="fas fa-angle-double-right"></i>
-    </a>
-    <form class="flex items-center gap-2.5" method="get">
-        <input type="text" hidden asp-for="CurrentPage">
-        @Html.DropDownList("PageSize", new SelectList(new List<string>() { "5", "10", "20" }), new {@class = "bg-white text-gray-700 outline-none rounded shadow select-per-page"})
+    </button>
+    <div class="flex items-center gap-2.5" method="get">
+        @Html.DropDownList("PageSize", new SelectList(new List<string>() { "5", "10", "20" }), new { @class = "bg-white text-gray-700 outline-none rounded shadow select-per-page" })
         <p>items/page</p>
-        <button class="btn bg-primary text-white" type="submit">Apply</button>
-    </form>
+    </div>
 </div>

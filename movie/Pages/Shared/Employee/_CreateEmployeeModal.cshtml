@@ -1,17 +1,13 @@
 @model movie.Models.User.UserCreate
 
-@{
-    var isError = !string.IsNullOrEmpty(Html.ViewData.ModelState.Keys.FirstOrDefault(m => m == "Create"));
-}
-
-<div id="modal-create-employee" class="modal @(isError ? "active" : "")">
+<div id="modal-create-employee" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Create Employee</h3>
             <button class="modal-close" data-modal-target="modal-create-employee">&times;</button>
         </div>
         <div class="modal-body">
-            <form method="post" asp-page="Employee" asp-page-handler="Create" class="flex flex-col gap-3">
+            <form id="create-employee" class="flex flex-col gap-3">
                 <div>
                     <label>Name</label>
                     <input
@@ -19,10 +15,6 @@
                         class="input-custom"
                         asp-for="Name"
                         placeholder="Enter name"/>
-                    @if (isError)
-                    {
-                        <span class="text-error" asp-validation-for="Name"></span>
-                    }
                 </div>
                 <div>
                     <label>Email</label>
@@ -31,10 +23,6 @@
                         class="input-custom"
                         asp-for="Email"
                         placeholder="Enter email"/>
-                    @if (isError)
-                    {
-                        <span class="text-error" asp-validation-for="Email"></span>
-                    }
                 </div>
                 <div>
                     <label>Password</label>
@@ -43,10 +31,6 @@
                         class="input-custom"
                         asp-for="Password"
                         placeholder="Enter password"/>
-                    @if (isError)
-                    {
-                        <span class="text-error" asp-validation-for="Password"></span>
-                    }
                 </div>
                 <div>
                     <label>Birthday</label>
@@ -55,15 +39,8 @@
                         @Html.DropDownList("Day", new SelectList(new List<string>() { }), new { @class = "day-custom input-custom" })
                         @Html.DropDownList("Year", new SelectList(new List<string>() { }), new { @class = "year-custom input-custom" })
                     </div>
-                    @if (isError)
-                    {
-                        <div class="flex flex-col gap-2.5">
-                            <span class="text-error" asp-validation-for="Day"></span>
-                            <span class="text-error" asp-validation-for="Month"></span>
-                            <span class="text-error" asp-validation-for="Year"></span>
-                        </div>
-                    }
                 </div>
+                <div class="list-error"></div>
                 <div class="">
                     <button type="submit" class="btn bg-primary text-white">Save</button>
                     <button class="btn bg-gray-500 text-white" data-modal-target="modal-create-employee">Cancel</button>

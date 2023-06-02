@@ -2,18 +2,15 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model movie.Models.Movie.MovieCreate
 
-@{
-    var isError = !string.IsNullOrEmpty(Html.ViewData.ModelState.Keys.FirstOrDefault(m => m == "Create"));
-}
 
-<div id="modal-create-movie" class="modal @(isError ? "active" : "")">
+<div id="modal-create-movie" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Create Movie</h3>
             <button class="modal-close" data-modal-target="modal-create-movie">&times;</button>
         </div>
         <div class="modal-body">
-            <form method="post" asp-page="Movie" asp-page-handler="Create" class="flex flex-col gap-3">
+            <form id="create-movie" class="flex flex-col gap-3">
                 <div>
                     <label>Name</label>
                     <input
@@ -50,10 +47,7 @@
                     <label>Room</label>
                     @Html.DropDownList("RoomId", new SelectList(FakeData.Rooms, "Id", "Name"), new { @class = "input-custom" })
                 </div>
-                @if (isError)
-                {
-                    @Html.ValidationSummary(false, "", new {@class = "text-error"})
-                }
+                <div class="list-error"></div>
                 <div class="">
                     <button type="submit" class="btn bg-primary text-white">Save</button>
                     <button class="btn bg-gray-500 text-white" data-modal-target="modal-create-movie">Cancel</button>

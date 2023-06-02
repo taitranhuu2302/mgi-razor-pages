@@ -16,10 +16,10 @@
             </a>
         }
     </div>
-    <div method="post" class="grid grid-cols-8 gap-2.5">
+    <div id="movies" class="grid grid-cols-8 gap-2.5">
         @foreach (MovieModel movie in @Model.Movies)
         {
-            @await Html.PartialAsync("Shared/_CardMovie", new CardMovie()
+        @await Html.PartialAsync("Shared/_CardMovie", new CardMovie()
                    {
                        MovieModel = movie,
                        UserModel = Model.UserModel

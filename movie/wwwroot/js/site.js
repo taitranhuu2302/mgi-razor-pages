@@ -1,25 +1,82 @@
-﻿const btnOpenModal = document.querySelectorAll('[data-modal-target]');
-btnOpenModal.forEach(btn => {
+﻿const listError = document.querySelectorAll(".list-error");
 
-    btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const value = btn.getAttribute('data-modal-target');
-        const modal = document.querySelector(`#${value}`);
-        modal.classList.toggle('active');
+const removeError = () => {
+    listError.forEach((err) => {
+        err.innerHTML = ""
+    })
+}
 
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
+export const modalEvent = () => {
+    document.querySelectorAll('[data-modal-target]').forEach(btn => {
+        if (btn.getAttribute('data-listen')) return;
+        btn.setAttribute('data-listen', 'listen')
+        
+        btn.addEventListener('click', (e) => {
+            e.preventDefault()
+            
+            const value = btn.getAttribute('data-modal-target');
+            const modal = document.querySelector(`#${value}`);
+            modal.classList.toggle('active')
+            removeError();
+
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    removeError();
+                }
+            })
+
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    modal.classList.remove('active');
+                    removeError();
+                }
+            })
         })
+    });
+}
+export const setListError = (response, form) => {
+    const errorArr = Object.values(response.errors).flatMap(value => value.map(v => String(v)));
+    console.log(errorArr)
+    form.querySelector(".list-error").innerHTML = errorArr.map(error => {
+        return `
+                <span class="text-error">${error}</span>
+            `
+    }).join("")
+}
 
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                modal.classList.remove('active');
-            }
+export const clearInputData = (arr) => {
+    arr.forEach(i => {
+        i.value = ""
+    })
+}
+
+export const handleDelete = (url, callback) => {
+    const buttonConfirm = document.querySelectorAll(".btn-confirm");
+
+    buttonConfirm.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const modal = document.querySelector("#modal-confirm-delete")
+            modal.setAttribute("data-obj", btn.getAttribute('data-obj'))
         })
     })
-});
+
+    const modal = document.querySelector("#modal-confirm-delete");
+    modal.querySelector(".btn-submit").addEventListener('click', async () => {
+        const data = JSON.parse(modal.getAttribute("data-obj"))
+        await fetch(`${url}/${data.id}`, {
+            method: 'DELETE',
+        }).then(res => res.json());
+        modal.classList.remove('active')
+        callback();
+    });
+
+}
+
+export const closeModalForm = (form) => {
+    const modal = form.parentNode.parentNode.parentNode;
+    modal.classList.remove('active')
+}
 
 const selectDays = document.querySelectorAll(".day-custom")
 const selectMonths = document.querySelectorAll(".month-custom")
@@ -129,19 +186,19 @@ renderMonths()
 renderDays(days[0])
 
 
-const confirmButtons = document.querySelectorAll(".btn-confirm");
-
-confirmButtons.forEach(btn => {
-    const parent = btn.parentNode;
-    const modal = parent.querySelector(".modal");
-    
-    btn.addEventListener("click", () => {
-        modal.classList.add('active')
-    })
-
-    const buttonClose = parent.querySelector(".btn-confirm-close");
-
-    buttonClose.addEventListener('click', () => {
-        modal.classList.remove('active')
-    })
-})
+// const confirmButtons = document.querySelectorAll(".btn-confirm");
+//
+// confirmButtons.forEach(btn => {
+//     const parent = btn.parentNode;
+//     const modal = parent.querySelector(".modal");
+//
+//     btn.addEventListener("click", () => {
+//         modal.classList.add('active')
+//     })
+//
+//     const buttonClose = parent.querySelector(".btn-confirm-close");
+//
+//     buttonClose.addEventListener('click', () => {
+//         modal.classList.remove('active')
+//     })
+// })
