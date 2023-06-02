@@ -5,24 +5,36 @@ const removeError = () => {
         err.innerHTML = ""
     })
 }
+export const clearDataClose = (form) => {
+    const inputCreate = form.querySelectorAll("input")
+    inputCreate.forEach(input => {
+        input.value = ""
+    })
+}
 
-export const modalEvent = () => {
+export const modalEvent = (callback) => {
     document.querySelectorAll('[data-modal-target]').forEach(btn => {
         if (btn.getAttribute('data-listen')) return;
         btn.setAttribute('data-listen', 'listen')
-        
+
         btn.addEventListener('click', (e) => {
             e.preventDefault()
-            
+
             const value = btn.getAttribute('data-modal-target');
             const modal = document.querySelector(`#${value}`);
-            modal.classList.toggle('active')
+            if (modal.classList.contains('active')) {
+                modal.classList.remove('active')
+                callback()
+            } else {
+                modal.classList.add('active')
+            }
             removeError();
 
             window.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     modal.classList.remove('active');
                     removeError();
+                    callback()
                 }
             })
 
@@ -30,6 +42,7 @@ export const modalEvent = () => {
                 if (e.key === 'Escape') {
                     modal.classList.remove('active');
                     removeError();
+                    callback()
                 }
             })
         })

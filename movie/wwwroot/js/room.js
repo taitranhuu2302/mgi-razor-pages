@@ -1,6 +1,7 @@
-import {clearInputData, closeModalForm, handleDelete, modalEvent, setListError} from "./site.js";
+import {clearDataClose, clearInputData, closeModalForm, handleDelete, modalEvent, setListError} from "./site.js";
 
 const URL = "/api/rooms"
+const formCreate = document.querySelector("#create-room");
 
 const query = {
     count: 0,
@@ -68,7 +69,9 @@ const fetchData = async (params) => {
         })
     })
 
-    modalEvent()
+    modalEvent(() => {
+        clearDataClose(formCreate)
+    })
     handleDelete(URL, () => {
         fetchData()
     })
@@ -77,7 +80,6 @@ fetchData().then(() => {
     paginateHandler()
 })
 
-const formCreate = document.querySelector("#create-room");
 
 formCreate.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -85,7 +87,7 @@ formCreate.addEventListener('submit', async (e) => {
     const seats = formCreate.querySelector("input[name='Seats']");
     const request = {
         name: name.value,
-        seats: seats.value,
+        seats: seats.value || 0,
     }
     const response = await fetch(URL, {
         method: "post",
@@ -117,7 +119,7 @@ formEdit.addEventListener('submit', async (e) => {
     const request = {
         id: id.value,
         name: name.value,
-        seats: seats.value,
+        seats: seats.value ||  0,
         startTime: startTime.value || null,
         endTime: endTime.value || null,
         userId: userId.value || null,

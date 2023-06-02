@@ -1,4 +1,6 @@
-import {clearInputData, closeModalForm, handleDelete, modalEvent, setListError} from "./site.js";
+import {clearDataClose, clearInputData, closeModalForm, handleDelete, modalEvent, setListError} from "./site.js";
+const formCreate = document.querySelector("#create-employee");
+const formEdit = document.querySelector("#edit-employee");
 
 const query = {
     count: 0,
@@ -57,7 +59,9 @@ const fetchData = async (params) => {
         })
     })
 
-    modalEvent()
+    modalEvent(() => {
+        clearDataClose(formCreate)
+    })
     handleDelete('/api/users', () => {
         fetchData()
     })
@@ -107,7 +111,6 @@ function paginateHandler() {
 }
 
 
-const formCreate = document.querySelector("#create-employee");
 
 formCreate.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -121,9 +124,9 @@ formCreate.addEventListener('submit', async (e) => {
         name: name.value,
         email: email.value,
         password: password.value,
-        day: day.value,
-        month: month.value,
-        year: year.value,
+        day: day.value === 'Day' ? "" : day.value,
+        month: month.value === 'Month' ? "" : month.value,
+        year: year.value === 'Year' ? "" : year.value,
     }
     const response = await fetch(URL, {
         method: "post",
@@ -141,7 +144,6 @@ formCreate.addEventListener('submit', async (e) => {
     }
 })
 
-const formEdit = document.querySelector("#edit-employee");
 
 formEdit.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -157,9 +159,9 @@ formEdit.addEventListener('submit', async (e) => {
         name: name.value,
         email: email.value,
         password: password.value,
-        day: day.value,
-        month: month.value,
-        year: year.value,
+        day: day.value === 'Day' ? "" : day.value,
+        month: month.value === 'Month' ? "" : month.value,
+        year: year.value === 'Year' ? "" : year.value,
     }
     const response = await fetch(URL, {
         method: "put",

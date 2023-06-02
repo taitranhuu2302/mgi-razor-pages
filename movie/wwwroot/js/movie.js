@@ -1,4 +1,7 @@
-import {clearInputData, closeModalForm, handleDelete, modalEvent, setListError} from "./site.js";
+import {clearDataClose, clearInputData, closeModalForm, handleDelete, modalEvent, setListError} from "./site.js";
+
+const formCreate = document.querySelector("#create-movie");
+const formEdit = document.querySelector("#edit-movie");
 
 const URL = '/api/movies'
 const query = {
@@ -59,7 +62,9 @@ const fetchData = async (params) => {
     handleDelete(URL, () => {
         fetchData()
     })
-    modalEvent()
+    modalEvent(() => {
+        clearDataClose(formCreate)
+    })
 }
 fetchData().then(r => {
     paginateHandler()
@@ -80,19 +85,19 @@ function paginateHandler() {
             switch (type) {
                 case 'prev':
                     if (query.currentPage > 1) {
-                        await fetchData({currentPage: query.currentPage - 1})
+                        await fetchData({...query, currentPage: query.currentPage - 1})
                     }
                     break;
                 case 'next':
                     if (query.currentPage < totalPage) {
-                        await fetchData({currentPage: query.currentPage + 1})
+                        await fetchData({...query, currentPage: query.currentPage + 1})
                     }
                     break;
                 case 'first':
-                    await fetchData({currentPage: 1})
+                    await fetchData({...query, currentPage: 1})
                     break;
                 case 'last':
-                    await fetchData({currentPage: totalPage})
+                    await fetchData({...query, currentPage: totalPage})
                     break;
             }
             document.querySelector("#current-page").innerText = query.currentPage
@@ -105,7 +110,6 @@ function paginateHandler() {
     })
 }
 
-const formCreate = document.querySelector("#create-movie");
 
 formCreate.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -117,8 +121,8 @@ formCreate.addEventListener('submit', async (e) => {
     const request = {
         name: name.value,
         image: image.value,
-        price: price.value,
-        ticketCount: ticketCount.value,
+        price: price.value || 0,
+        ticketCount: ticketCount.value || 0,
         roomId: roomId.value,
     }
     const response = await fetch(URL, {
@@ -137,7 +141,6 @@ formCreate.addEventListener('submit', async (e) => {
     }
 })
 
-const formEdit = document.querySelector("#edit-movie");
 
 formEdit.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -150,7 +153,7 @@ formEdit.addEventListener('submit', async (e) => {
         id: id.value,
         name: name.value,
         image: image.value,
-        price: price.value,
+        price: price.value || 0,
     }
     const response = await fetch(URL, {
         method: "put",
